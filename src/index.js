@@ -6,9 +6,7 @@ import { LocationProvider } from './context/LocationContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <LocationProvider>
-        <App />
-    </LocationProvider>
+        <LocationProvider>
+            <App />
+        </LocationProvider>
 );
-
-

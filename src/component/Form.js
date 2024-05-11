@@ -92,7 +92,7 @@ export default function Form() {
                             </Button>
                         </Box>
                     </Box>
-                    <Map sx={{ height: 1 }}></Map>
+                    <Map></Map>
                     <Copyright sx={{ mt: 5 }} />
                 </Container>
             </ThemeProvider>
