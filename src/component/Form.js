@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import Map from './Map';
 
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place';
@@ -37,9 +36,9 @@ export default function Form() {
         e.preventDefault();
         try {
             const url = `http://localhost:3001/find?address=${encodeURIComponent(location)}`
-            const { data } = await axios.get(url)
-            setResponse([data.location.lat, data.location.lng])
-            // console.log(response)
+            const response = await axios.get(url)
+            setResponse([response.data.location])
+            console.log(response.data.location)
         } catch (err) {
             console.log(err)
         }
@@ -92,8 +91,7 @@ export default function Form() {
                             </Button>
                         </Box>
                     </Box>
-                    <Map></Map>
-                    <Copyright sx={{ mt: 5 }} />
+                    {/* <Copyright sx={{ mt: 5 }} /> */}
                 </Container>
             </ThemeProvider>
         </>

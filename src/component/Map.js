@@ -10,10 +10,12 @@ const defaultTheme = createTheme();
 export default function Map() {
 
     const { response } = useLocation()
-    const lat = response ? response[0] : 0;
-    const lng = response ? response[1] : 0
+    const position = response
 
-    console.log(lat, lng) //getting the output here properly
+    console.log( typeof position[0].lat) //getting the output here as number
+    console.log(position[0].lat) //22.4954988 output value
+    console.log(position[0].lng) //88.3709008 output value
+
 
     const markerIcon = new Icon({
         iconUrl: "https://cdn-icons-png.flaticon.com/128/684/684908.png",
@@ -30,21 +32,18 @@ export default function Map() {
                     display: "flex",
                     margin: 'auto'
                 }}>
-                    <MapContainer center={[51.505, -0.09]} zoom={18} style={{ height: "100%", flex: 1 }}>
-                          {/* here in "center" i am facing issue whenever i am trying to send value of lat lng it is showing error */}
+                    <MapContainer center={[position[0].lat, position[0].lng]} zoom={18} style={{ height: "100%", flex: 1 }}>
+                          {/* here it says undefined */}
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-
                         <Marker position={[51.505, -0.09]} icon={markerIcon}>
                         {/* here in "position" i am facing issue whenever i am trying to send value of lat lng it is showing error */}
                             <Popup>
                                 You're here!
                             </Popup>
                         </Marker>
-
-
                     </MapContainer>
                 </Box>
 
