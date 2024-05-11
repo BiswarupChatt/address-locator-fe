@@ -2,31 +2,13 @@ import * as React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 
+import { useLocation } from '../context/LocationContext';
+
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place';
 
-import { useLocation } from '../context/LocationContext';
-
-
-
-
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
+
 
 export default function Form() {
     const [location, setLocation] = useState('')
@@ -38,7 +20,7 @@ export default function Form() {
             const url = `http://localhost:3001/find?address=${encodeURIComponent(location)}`
             const response = await axios.get(url)
             setResponse([response.data.location])
-            console.log(response.data.location)
+            // console.log(response.data.location)
         } catch (err) {
             console.log(err)
         }
@@ -91,7 +73,6 @@ export default function Form() {
                             </Button>
                         </Box>
                     </Box>
-                    {/* <Copyright sx={{ mt: 5 }} /> */}
                 </Container>
             </ThemeProvider>
         </>

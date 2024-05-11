@@ -1,9 +1,9 @@
 import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import { Icon } from 'leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Container, CssBaseline, Box, createTheme, ThemeProvider } from '@mui/material'
 import { useLocation } from '../context/LocationContext';
+import { Icon } from 'leaflet';
 
 const defaultTheme = createTheme();
 
@@ -12,10 +12,9 @@ export default function Map() {
     const { response } = useLocation()
     const position = response
 
-    console.log( typeof position[0].lat) //getting the output here as number
-    console.log(position[0].lat) //22.4954988 output value
-    console.log(position[0].lng) //88.3709008 output value
-
+    if (!position || !Array.isArray(position) || !position[0] || typeof position[0].lat !== 'number' || typeof position[0].lng !== 'number') {
+        return null;
+    }
 
     const markerIcon = new Icon({
         iconUrl: "https://cdn-icons-png.flaticon.com/128/684/684908.png",
@@ -32,21 +31,18 @@ export default function Map() {
                     display: "flex",
                     margin: 'auto'
                 }}>
-                    <MapContainer center={[position[0].lat, position[0].lng]} zoom={18} style={{ height: "100%", flex: 1 }}>
-                          {/* here it says undefined */}
+                    <MapContainer center={[position[0].lat, position[0].lng]} zoom={17} style={{ height: "100%", flex: 1 }}>
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-                        <Marker position={[51.505, -0.09]} icon={markerIcon}>
-                        {/* here in "position" i am facing issue whenever i am trying to send value of lat lng it is showing error */}
+                        <Marker position={[position[0].lat, position[0].lng]} icon={markerIcon}>
                             <Popup>
                                 You're here!
                             </Popup>
                         </Marker>
                     </MapContainer>
                 </Box>
-
             </Container>
         </ThemeProvider>
     )
