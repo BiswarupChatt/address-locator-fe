@@ -2,19 +2,15 @@ import * as React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import Map from './Map';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place';
+
+import { useLocation } from '../context/LocationContext';
+
+
+
+
 
 function Copyright(props) {
     return (
@@ -35,7 +31,7 @@ const defaultTheme = createTheme();
 
 export default function Form() {
     const [location, setLocation] = useState('')
-    const [response, setResponse] = useState([])
+    const { setResponse } = useLocation()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -43,7 +39,7 @@ export default function Form() {
             const url = `http://localhost:3001/find?address=${encodeURIComponent(location)}`
             const { data } = await axios.get(url)
             setResponse([data.location.lat, data.location.lng])
-            console.log(response)
+            // console.log(response)
         } catch (err) {
             console.log(err)
         }
@@ -96,7 +92,7 @@ export default function Form() {
                             </Button>
                         </Box>
                     </Box>
-                    <Map sx={{height: 1}}></Map>
+                    <Map sx={{ height: 1 }}></Map>
                     <Copyright sx={{ mt: 5 }} />
                 </Container>
             </ThemeProvider>

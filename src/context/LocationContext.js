@@ -3,10 +3,6 @@ import React, { createContext, useContext, useState } from 'react'
 
 const LocationContext = createContext()
 
-export const useLocation = ()=>{
-    return useContext(LocationContext)
-}
-
 export const LocationProvider = ({children})=>{
     const [response, setResponse] = useState([])
 
@@ -15,4 +11,9 @@ export const LocationProvider = ({children})=>{
             {children}
         </LocationContext.Provider>
     )
+}
+
+
+export const useLocation = ()=>{
+    return useContext(LocationContext)
 }
